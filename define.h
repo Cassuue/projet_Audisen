@@ -29,6 +29,10 @@ struct tick{
 	int note[4];// Tableau de 4 notes (0 à 60)
 }s_tick;
 
+// Fonctions tick
+
+s_tick createTick(int accent, int note[4]);
+
 typedef
 struct song{
 	int tpm;// tick par minutes
@@ -36,6 +40,10 @@ struct song{
 	char title[MAX_SIZE_TITLE];// Titre du morceau
 	struct tick tickTab[MAX_NUMBER_TICKS];// Tableau de ticks
 }s_song;
+
+s_song createSong(int tpm, int nTicks, char title[MAX_SIZE_TITLE], s_tick tickTab[MAX_NUMBER_TICKS]);
+
+
 #endif
 
 
