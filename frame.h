@@ -17,6 +17,7 @@
 #define LF 10
 
 void createInitFrame(s_song mySong, char* frame);
+int checksum(char data[]);
 void createTickFrame(s_tick myTick, char* frame);
 
 #endif //AUDISEN2024_FRAME_H
