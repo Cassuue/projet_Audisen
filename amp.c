@@ -54,14 +54,16 @@ void conversionName(char* titre){
         if (((titre[j] < 'a' || titre[j] > 'z') && (titre[j] < '0' || titre[j] > '9')) && titre[j]!='\0') {
             //Si le caractère précédent est déjà un tiret
             if(j>0){
-            if (titre[j - 1] == '_') {
-                it++;
-                int k;
-                for (k = j; k < longueur ; k++) {
-                    titre[k] = titre[k + 1];
+                if (titre[j - 1] == '_') {
+                    it++;
+                    int k;
+                    for (k = j; k < longueur ; k++) {
+                        titre[k] = titre[k + 1];
+                    }
+                    j--;
                 }
-                j--;
-            }}
+            }
+
             //Si le premier caractère est faux ne pas mettre de tiret
             if (j == 0) {
                 it ++;
@@ -71,16 +73,18 @@ void conversionName(char* titre){
                 }
                 j--;
             }
+
             if(it==0) {
                 titre[j] = '_';
             }
+
             it = 0;
         }
     }
     printf("\n");
+
     //Ne pas avoir de tiret à la fin
-    while(longueur>0 && titre[longueur-1]=='_'){
-        //longueur--;
+    if(longueur>0 && titre[longueur-1]=='_'){
         titre[longueur-1] = '\0';
     }
     printf("titre sans tout les caracteres non voulu : %s\n",titre);
