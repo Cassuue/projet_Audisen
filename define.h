@@ -41,6 +41,8 @@ struct song{
 	struct tick tickTab[MAX_NUMBER_TICKS];// Tableau de ticks
 }s_song;
 
+// Fonctions song
+
 s_song createSong(int tpm, int nTicks, char title[MAX_SIZE_TITLE], s_tick tickTab[MAX_NUMBER_TICKS]);
 
 
