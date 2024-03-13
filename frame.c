@@ -8,6 +8,7 @@
 void createInitFrame(s_song mySong, char* frame){
 	char var[5];
     char data[50];
+    strcpy(frame,"");
     strcpy(data, "");
 
     strcat(frame,"#");
@@ -42,6 +43,7 @@ int checksum(char data[]){
 void createTickFrame(s_tick myTick, char* frame){
     char varT[5];
     char dataT[50];
+    strcpy(frame,"");
     strcpy(dataT, "");
 
     strcat(frame,"#");
