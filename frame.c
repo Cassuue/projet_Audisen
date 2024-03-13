@@ -8,6 +8,7 @@
 void createInitFrame(s_song mySong, char* frame){
 	char var[5];
     char data[50];
+    strcpy(data, "");
 
     strcat(frame,"#");
 
@@ -35,14 +36,13 @@ int checksum(char data[]){
     for(i=1; i<len; i++){
         val = val ^ (int)data[i];
     }
-    //char* hex_val = malloc(3*sizeof(char));
-    //sprintf(hex_val, "%02x", val);
     return val;
 }
 
 void createTickFrame(s_tick myTick, char* frame){
     char varT[5];
     char dataT[50];
+    strcpy(dataT, "");
 
     strcat(frame,"#");
 
