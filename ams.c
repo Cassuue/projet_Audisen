@@ -216,25 +216,13 @@ void createAMS(char* txtFileName, char* amsFileName){
                     }
 
                     // On ajoute la note au tableau contenant les notes de la tick
-                    if(notes_tick[0][0] == 0){
-                        notes_tick[0][0] = num_note;
-                        notes_tick[0][1] = temps;
-                        notes_tick[0][2] = 1;
-                    } else{
-                        if(notes_tick[1][0] == 0){
-                            notes_tick[1][0] = num_note;
-                            notes_tick[1][1] = temps;
-                            notes_tick[1][2] = 1;
-                        } else{
-                            if(notes_tick[2][0] == 0){
-                                notes_tick[2][0] = num_note;
-                                notes_tick[2][1] = temps;
-                                notes_tick[2][2] = 1;
-                            } else{
-                                notes_tick[3][0] = num_note;
-                                notes_tick[3][1] = temps;
-                                notes_tick[3][2] = 1;
-                            }
+                    int test = 0;
+                    for(int i = 0; i<4; i++){
+                        if(notes_tick[i][0] == 0 && test == 0){
+                            notes_tick[i][0] = num_note;
+                            notes_tick[i][1] = temps;
+                            notes_tick[i][2] = 1;
+                            test = 1;
                         }
                     }
 
@@ -249,16 +237,13 @@ void createAMS(char* txtFileName, char* amsFileName){
                 for(int i = 1; i<61; i++){
 
                     // Variable permettant de savoir si on a déjà écrit une note ou pas
-                    int car = 0;
+                    int test2 = 0;
 
                     for(int j = 0; j<4; j++){
-
                         // Test du numéro de la note
                         if(i == notes_tick[j][0]){
-
                             // Test du temps de la note
                             if(notes_tick[j][1] != 0){
-
                                 // Test de l'accentuation
                                 if(notes_tick[j][2] == 1){
                                     fprintf(fileams, "^ |");
@@ -269,7 +254,7 @@ void createAMS(char* txtFileName, char* amsFileName){
                                 }
 
                                 notes_tick[j][1]--;
-                                car = 1;
+                                test2 = 1;
 
                                 // On enlève la note en la déclarant à 0 si le temps est à 0
                                 if(notes_tick[j][1] == 0){
@@ -277,7 +262,6 @@ void createAMS(char* txtFileName, char* amsFileName){
                                 }
 
                             } else{
-
                                 // On enlève la note en la déclarant à 0
                                 notes_tick[j][0] = 0;
                             }
@@ -285,15 +269,13 @@ void createAMS(char* txtFileName, char* amsFileName){
                     }
 
                     // Si on a pas de note, on met une case vide
-                    if(car == 0){
+                    if(test2 == 0){
                         fprintf(fileams, "  |");
                     }
                 }
-
                 nb_tick++;
             }
         }
-
         fclose(fileams);
     }
     fclose(filetxt);
