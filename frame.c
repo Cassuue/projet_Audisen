@@ -8,11 +8,13 @@
 void createInitFrame(s_song mySong, char* frame){
 	char var[5];
     char data[50];
+    //Réinitialise les chars pour qu'ils soient vide
     strcpy(frame,"");
     strcpy(data, "");
 
     strcat(frame,"#");
 
+    //Récupère les valeurs entre le # et * pour la checksum
     strcat(data,mySong.title);
     strcat(data,",");
     sprintf(var,"%d",mySong.tpm);
@@ -21,9 +23,11 @@ void createInitFrame(s_song mySong, char* frame){
     sprintf(var,"%d",mySong.nTicks);
     strcat(data,var);
 
+    //Calcul la checksum
     int sum = checksum(data);
     sprintf(var,"%02x",sum);
 
+    //Recupère le char data et l'ajoute à frame
     strcat(frame,data);
     strcat(frame,"*");
     strcat(frame,var);
@@ -43,15 +47,16 @@ int checksum(char data[]){
 void createTickFrame(s_tick myTick, char* frame){
     char varT[5];
     char dataT[50];
+    //Réinitialise les chars pour qu'ils soient vide
     strcpy(frame,"");
     strcpy(dataT, "");
 
     strcat(frame,"#");
 
+    //Récupère les valeurs entre le # et * pour la checksum
     //mode ?
     strcat(dataT,"0");
     strcat(dataT,",");
-
     sprintf(varT,"%d",myTick.accent);
     strcat(dataT,varT);
     strcat(dataT,",");
@@ -91,9 +96,11 @@ void createTickFrame(s_tick myTick, char* frame){
         strcat(dataT,"00");
     }
 
+    //Calcul la checksum
     int sum = checksum(dataT);
     sprintf(varT,"%02x",sum);
 
+    //Recupère le char data et l'ajoute à frame
     strcat(frame,dataT);
     strcat( frame,"*");
     strcat(frame,varT);
