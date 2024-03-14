@@ -19,24 +19,23 @@ void convert_lr(char* entree){
 
 void readAMP(FILE* pf, char* song_filename){
     char titre[MAX_SIZE_TITLE];
+    //Lit chaque ligne du fichier pour recuperer les titres
     if(fgets(titre,MAX_SIZE_TITLE,pf) != NULL) {
         convert_lr(titre);
         conversionName(titre);
         strcpy(song_filename, titre);
-        printf("song_filename final : %s\n", song_filename);
     }
     else{
         song_filename = NULL;
-        //printf("songname->NULL\n");
     }
 }
 
 void conversionName(char* titre){
     size_t longueur = strlen(titre);
+    //Retablit à la taille maximum si titre trop long
     if(longueur > MAX_SIZE_TITLE){
         longueur = MAX_SIZE_TITLE;
     }
-    //printf("Titre recupere entrant ds la fonction reconversion : %s\n",titre);
 
     //Remplacer les majuscules par des miniscules
     int i;
@@ -45,19 +44,17 @@ void conversionName(char* titre){
             titre[i] = titre[i] + 32;
         }
     }
-    //printf("Titre sans les majuscules : %s\n",titre);
 
     //Remplacer les espaces... par les tirets
-    int j;
     int it = 0;
-    for(j=0; j<longueur; j++) {
+    for(int j=0; j<longueur; j++) {
+        //Si autre caractère que une minuscule ou chiffre
         if (((titre[j] < 'a' || titre[j] > 'z') && (titre[j] < '0' || titre[j] > '9')) && titre[j]!='\0') {
             //Si le caractère précédent est déjà un tiret
             if(j>0){
                 if (titre[j - 1] == '_') {
                     it++;
-                    int k;
-                    for (k = j; k < longueur ; k++) {
+                    for (int k = j; k < longueur ; k++) {
                         titre[k] = titre[k + 1];
                     }
                     j--;
@@ -77,17 +74,14 @@ void conversionName(char* titre){
             if(it==0) {
                 titre[j] = '_';
             }
-
             it = 0;
         }
     }
-    printf("\n");
 
     //Ne pas avoir de tiret à la fin
     if(longueur>0 && titre[longueur-1]=='_'){
         titre[longueur-1] = '\0';
     }
-    //printf("titre sans tout les caracteres non voulu : %s\n",titre);
 
     //Ajoute l'extension .ams
     strcat(titre,".ams");
@@ -108,5 +102,3 @@ void AMP(char* filename){
     }
     closeAMP(pf);
 }
-
-

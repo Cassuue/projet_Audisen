@@ -11,7 +11,8 @@ s_song readAMS(char* fileName){
     pf = fopen(fileName, "r");
 
     if(pf == NULL){
-        //printf("Erreur dans l'ouverture du fichier");
+        //Si le fichier s'ouvre pas, on crée un son vide
+        printf("Erreur dans l'ouverture du fichier");
         int note[4] = {0,0,0,0};
         s_tick tick_error = createTick(0, note);
         s_tick tab_tick_error[1];
@@ -19,8 +20,6 @@ s_song readAMS(char* fileName){
         mySong = createSong(0,0,"", tab_tick_error);
     }
     else{
-
-        //printf("Fichier ouvert");
         // On récupère le titre du morceau
         char title[MAX_SIZE_TITLE];
         fgets(title, MAX_SIZE_TITLE, pf);
@@ -34,7 +33,7 @@ s_song readAMS(char* fileName){
         // On se déplace dans le fichier pour arriver à la partition
         char line[MAX_SIZE_LINE];
 
-        fseek(pf, 4, SEEK_CUR);
+        fseek(pf, 4, SEEK_CUR);     //fseek : permet de deplacer le curseur ds le fichier
         fgets(line, MAX_SIZE_LINE, pf);
 
         // On analyse chaque ligne pour récupérer les notes
@@ -62,6 +61,7 @@ s_song readAMS(char* fileName){
                     ind++;
                 }
             }
+            // Si nombre nombre de notes inférieur à 4 alors autres à 0
             if (ind != 3){
                 for(int i = ind; i<4; i++){
                     notes[i] = 0;
@@ -87,7 +87,7 @@ s_tick createTick(int accent, int note[4]){
     t.accent = accent;
     for (int i=0; i<4; i++){
         t.note[i] = note[i];
-    };
+    }
     return t;
 }
 
@@ -111,7 +111,7 @@ void createAMS(char* txtFileName, char* amsFileName){
     filetxt = fopen(txtFileName, "r");
 
     if(filetxt == NULL){
-        printf("ERROR : impossible d'ouvrir le fichier TXT");
+        printf("ERROR : impossible d'ouvrir le fichier TXT\n");
     }
     else{
 
@@ -120,7 +120,7 @@ void createAMS(char* txtFileName, char* amsFileName){
         fileams = fopen(amsFileName, "w+");
 
         if(fileams == NULL){
-            printf("ERROR : impossible d'ouvrir le fichier AMS");
+            printf("ERROR : impossible d'ouvrir le fichier AMS\n");
         }
         else{
 
@@ -248,7 +248,6 @@ void createAMS(char* txtFileName, char* amsFileName){
                                 if(notes_tick[j][2] == 1){
                                     fprintf(fileams, "^ |");
                                     notes_tick[j][2] = 0;
-
                                 } else {
                                     fprintf(fileams, "x |");
                                 }
