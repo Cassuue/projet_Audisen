@@ -3,39 +3,45 @@
 #include "ams.h"
 #include "frame.h"
 #include "usb.h"
+#include <windows.h>
 
-void audisen_usb();
 
-void audisen_usb(){
+int main(){
     FILE* pf = initAMP("fichiers_musique/Playlist.amp");
-    FT_HANDLE ftHandle = initUSB();
     char initFrame[INIT_FRAME_MAX_SIZE]= "";
     s_song mySong;
     char tickFrame[TICK_FRAME_SIZE]="";
-    s_tick myTick;
     char* song_filename = malloc(MAX_SIZE_TITLE*sizeof(char));
+    char* song_filename_txt = malloc(MAX_SIZE_TITLE*sizeof(char));
+
+    FT_HANDLE ftHandle = initUSB();
+    if(ftHandle == NULL){
+        return 0;
+    }
+
     while(!feof(pf)){
         readAMP(pf,song_filename);
+        printf(song_filename);
+
         if(fopen(song_filename,"r") == NULL){
-            fclose(song_filename);
-            char* song_filename_txt;
-            strcpy(song_filename_txt,song_filename); //voir comment enlever .ams
-            int i;
-            for(i=0; i<4; i++){
+            strcpy(song_filename_txt,song_filename);
+            for(int i=0; i<4; i++){
                 song_filename_txt[strlen(song_filename_txt)-1] = '\0';
             }
             strcat(song_filename_txt,".txt");
             createAMS(song_filename_txt,song_filename);
-            //printf("txt : %s\n", song_filename_txt);
-            //printf("ams : %s\n", song_filename);
         }
-        readAMS(song_filename);
+
+        mySong = readAMS(song_filename);
         createInitFrame(mySong,initFrame);
         writeUSB(initFrame,ftHandle);
-        createTickFrame(myTick,tickFrame);
-        writeUSB(tickFrame,ftHandle);
-    }
 
+        for(int i=0; i<mySong.nTicks; i++){
+            createTickFrame(mySong.tickTab[i],tickFrame);
+            writeUSB(tickFrame,ftHandle);
+        }
+        Sleep(1);
+    }
     closeAMP(pf);
     closeUSB(ftHandle);
 }
