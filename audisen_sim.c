@@ -23,6 +23,7 @@ int main(){
     fprintf(filefrm, "ok");
     while(!feof(pf)){
         readAMP(pf,song_filename);
+        printf(song_filename);
         if(fopen(song_filename,"r") == NULL){
             fclose(song_filename);
             char* song_filename_txt;
@@ -42,16 +43,14 @@ int main(){
         printf("Frame init :  %s\n", initFrame);
 
         // Ajouter la frame de tick au fichier .frm
-        printf("Tick :  %s\n", mySong.tickTab[0]);
+        printf("Tick : %d\n", mySong.tickTab[0].note[0]);
         //printf(initFrame);
         printf("\n");
         for(int i=0; i<mySong.nTicks; i++){
             createTickFrame(mySong.tickTab[i],tickFrame);
             // Ajouter la tick au fichier .frm
             fputs(tickFrame, filefrm);
-
-            printf("Tick :  %s\n", mySong.tickTab[i]);
-            //printf("Frame tick :  %s\n", initFrame);
+            printf("Frame tick :  %s\n", tickFrame);
 
         }
 
