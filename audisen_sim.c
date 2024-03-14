@@ -13,14 +13,14 @@ int main(){
     char* song_filename = malloc(MAX_SIZE_TITLE*sizeof(char));
 
     FILE* filefrm;
-    filefrm = fopen("fileSimulation.frm", "w+");
+    filefrm = fopen("fileSimulation.frm", "wb");
 
     if(filefrm == NULL){
         printf("Erreur : impossible d'ouvrir le fichier\n");
         return 0;
     }
     printf("File open \n");
-
+    fprintf(filefrm, "ok");
     while(!feof(pf)){
         readAMP(pf,song_filename);
         if(fopen(song_filename,"r") == NULL){
@@ -36,17 +36,23 @@ int main(){
             //printf("txt : %s\n", song_filename_txt);
             //printf("ams : %s\n", song_filename);
         }
-        readAMS(song_filename);
+        mySong = readAMS(song_filename);
 
         createInitFrame(mySong,initFrame);
+        printf("Frame init :  %s\n", initFrame);
+
         // Ajouter la frame de tick au fichier .frm
-        fputs(initFrame, filefrm);
+        printf("Tick :  %s\n", mySong.tickTab[0]);
         //printf(initFrame);
         printf("\n");
         for(int i=0; i<mySong.nTicks; i++){
             createTickFrame(mySong.tickTab[i],tickFrame);
             // Ajouter la tick au fichier .frm
             fputs(tickFrame, filefrm);
+
+            printf("Tick :  %s\n", mySong.tickTab[i]);
+            //printf("Frame tick :  %s\n", initFrame);
+
         }
 
     }
