@@ -23,7 +23,7 @@ FT_HANDLE initUSB(){
     FT_STATUS ftStatus;
 
     //Verifier si le port USB s'ouvre
-    ftStatus = FT_Open(0,ftHandle);
+    ftStatus = FT_Open(0,&ftHandle);
     if(ftStatus != FT_OK){
         printf("Impossible d'ouvrir le port USB");
         return NULL;
@@ -51,16 +51,26 @@ FT_HANDLE initUSB(){
         return NULL;
     }
 
+    printf("Initialiser");
     return ftHandle;
 }
 
 void closeUSB(FT_HANDLE ftHandle){
     if (ftHandle != NULL) {
         FT_Close(ftHandle);
+        printf("Fermer");
     }
 }
 
-
 void writeUSB(char* frame, FT_HANDLE ftHandle){
+    FT_STATUS ftStatus;
+    DWORD nbrBitEcrit;
+    ftStatus = FT_Write(ftHandle,frame,sizeof(frame),&nbrBitEcrit);
 
+    if(ftStatus == FT_OK){
+        printf("Trame écrite avec succès");
+    }
+    else{
+        printf("Erreur trame non écrite");
+    }
 }
