@@ -2,15 +2,15 @@
 #include "amp.h"
 #include "ams.h"
 #include "frame.h"
-#include "usb.h"
+//#include "usb.h"
 
 int main(){
-    FILE* pf = initAMP("fichiers_musique/Playlist.amp");
+    FILE* pf = initAMP("Playlist.amp");
     char initFrame[INIT_FRAME_MAX_SIZE]= "";
     s_song mySong;
     char tickFrame[TICK_FRAME_SIZE]="";
-    s_tick myTick;
     char* song_filename = malloc(MAX_SIZE_TITLE*sizeof(char));
+    char* song_filename_txt = malloc(MAX_SIZE_TITLE*sizeof(char));
 
     FILE* filefrm;
     filefrm = fopen("fileSimulation.frm", "wb");
@@ -20,40 +20,29 @@ int main(){
         return 0;
     }
     printf("File open \n");
-    fprintf(filefrm, "ok");
+
     while(!feof(pf)){
         readAMP(pf,song_filename);
         printf(song_filename);
+
         if(fopen(song_filename,"r") == NULL){
-            fclose(song_filename);
-            char* song_filename_txt;
-            strcpy(song_filename_txt,song_filename); //voir comment enlever .ams
-            int i;
-            for(i=0; i<4; i++){
+            strcpy(song_filename_txt,song_filename);
+            for(int i=0; i<4; i++){
                 song_filename_txt[strlen(song_filename_txt)-1] = '\0';
             }
             strcat(song_filename_txt,".txt");
             createAMS(song_filename_txt,song_filename);
-            //printf("txt : %s\n", song_filename_txt);
-            //printf("ams : %s\n", song_filename);
         }
         mySong = readAMS(song_filename);
-
         createInitFrame(mySong,initFrame);
-        printf("Frame init :  %s\n", initFrame);
+        fputs(initFrame, filefrm);
 
         // Ajouter la frame de tick au fichier .frm
-        printf("Tick : %d\n", mySong.tickTab[0].note[0]);
-        //printf(initFrame);
-        printf("\n");
         for(int i=0; i<mySong.nTicks; i++){
             createTickFrame(mySong.tickTab[i],tickFrame);
             // Ajouter la tick au fichier .frm
             fputs(tickFrame, filefrm);
-            printf("Frame tick :  %s\n", tickFrame);
-
         }
-
     }
     fclose(filefrm);
     return 0;
