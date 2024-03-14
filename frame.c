@@ -61,39 +61,18 @@ void createTickFrame(s_tick myTick, char* frame){
     strcat(dataT,varT);
     strcat(dataT,",");
 
-    if(myTick.note[0] != 0){
-        sprintf(varT,"%d",myTick.note[0]);
-        strcat(dataT,varT);
-    }
-    else{
-        strcat(dataT,"00");
-    }
-    strcat(dataT,",");
-
-    if(myTick.note[1] != 0){
-        sprintf(varT,"%d",myTick.note[1]);
-        strcat(dataT,varT);
-    }
-    else{
-        strcat(dataT,"00");
-    }
-    strcat(dataT,",");
-
-    if(myTick.note[2] != 0){
-        sprintf(varT,"%d",myTick.note[2]);
-        strcat(dataT,varT);
-    }
-    else{
-        strcat(dataT,"00");
-    }
-    strcat(dataT,",");
-
-    if(myTick.note[3] != 0){
-        sprintf(varT,"%d",myTick.note[3]);
-        strcat(dataT,varT);
-    }
-    else{
-        strcat(dataT,"00");
+    // Ajout de la note au frame
+    for(int i = 0; i<4; i++){
+        if(myTick.note[i] != 0){
+            sprintf(varT,"%d",myTick.note[i]);
+            strcat(dataT,varT);
+        }
+        else{
+            strcat(dataT,"00");
+        }
+        if(i != 3){
+            strcat(dataT,",");
+        }
     }
 
     //Calcul la checksum
