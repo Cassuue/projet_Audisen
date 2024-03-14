@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "frame.h"
+#include "amp.h"
 #include "define.h"
 
 
@@ -15,6 +16,7 @@ void createInitFrame(s_song mySong, char* frame){
     strcat(frame,"#");
 
     //Récupère les valeurs entre le # et * pour la checksum
+    convert_lr(mySong.title);
     strcat(data,mySong.title);
     strcat(data,",");
     sprintf(var,"%d",mySong.tpm);
