@@ -54,7 +54,6 @@ void createTickFrame(s_tick myTick, char* frame){
     strcat(frame,"#");
 
     //Récupère les valeurs entre le # et * pour la checksum
-    //mode ?
     strcat(dataT,"0");
     strcat(dataT,",");
     sprintf(varT,"%d",myTick.accent);
@@ -83,6 +82,5 @@ void createTickFrame(s_tick myTick, char* frame){
     strcat(frame,dataT);
     strcat( frame,"*");
     strcat(frame,varT);
-    strcat(frame,"*");
     strcat(frame,"\r\n");
 }

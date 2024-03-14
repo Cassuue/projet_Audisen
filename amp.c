@@ -36,7 +36,7 @@ void conversionName(char* titre){
     if(longueur > MAX_SIZE_TITLE){
         longueur = MAX_SIZE_TITLE;
     }
-    printf("Titre recupere entrant ds la fonction reconversion : %s\n",titre);
+    //printf("Titre recupere entrant ds la fonction reconversion : %s\n",titre);
 
     //Remplacer les majuscules par des miniscules
     int i;
@@ -45,7 +45,7 @@ void conversionName(char* titre){
             titre[i] = titre[i] + 32;
         }
     }
-    printf("Titre sans les majuscules : %s\n",titre);
+    //printf("Titre sans les majuscules : %s\n",titre);
 
     //Remplacer les espaces... par les tirets
     int j;
@@ -87,7 +87,7 @@ void conversionName(char* titre){
     if(longueur>0 && titre[longueur-1]=='_'){
         titre[longueur-1] = '\0';
     }
-    printf("titre sans tout les caracteres non voulu : %s\n",titre);
+    //printf("titre sans tout les caracteres non voulu : %s\n",titre);
 
     //Ajoute l'extension .ams
     strcat(titre,".ams");
