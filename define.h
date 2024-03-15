@@ -25,8 +25,8 @@
 
 typedef
 struct tick{
-	int accent;//accentuation du tick (0=Non, 1:Oui)
-	int note[4];// Tableau de 4 notes (0 à 60)
+	int accent; //accentuation du tick (0=Non, 1:Oui)
+	int note[4]; // Tableau de 4 notes (0 à 60)
 }s_tick;
 
 // Fonctions tick
@@ -35,15 +35,15 @@ s_tick createTick(int accent, int note[4]);
 
 typedef
 struct song{
-	int tpm;// tick par minutes
-	int nTicks;// Nombre de ticks dans le morceau
-	char title[MAX_SIZE_TITLE];// Titre du morceau
-	struct tick tickTab[MAX_NUMBER_TICKS];// Tableau de ticks
+	int tpm; // tick par minutes
+	int nTicks; // Nombre de ticks dans le morceau
+	char title[MAX_SIZE_TITLE]; // Titre du morceau
+	struct tick tickTab[MAX_NUMBER_TICKS]; // Tableau de ticks
 }s_song;
 
 // Fonctions song
 
-s_song createSong(int tpm, int nTicks, char title[MAX_SIZE_TITLE], s_tick tickTab[MAX_NUMBER_TICKS]);
+s_song createSong(int tpm, int nTicks, char title[], s_tick tickTab[]);
 
 
 #endif

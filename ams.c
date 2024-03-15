@@ -90,7 +90,7 @@ s_tick createTick(int accent, int note[4]){
     return t;
 }
 
-s_song createSong(int tpm, int nTicks, char title[MAX_SIZE_TITLE], s_tick tickTab[MAX_NUMBER_TICKS]){
+s_song createSong(int tpm, int nTicks, char title[], s_tick tickTab[]){
     s_song s;
     s.tpm = tpm;
     s.nTicks = nTicks;
