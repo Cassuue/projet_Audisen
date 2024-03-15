@@ -12,7 +12,6 @@ s_song readAMS(char* fileName){
 
     if(pf == NULL){
         //Si le fichier s'ouvre pas, on crée un son vide
-        printf("Erreur dans l'ouverture du fichier");
         int note[4] = {0,0,0,0};
         s_tick tick_error = createTick(0, note);
         s_tick tab_tick_error[1];
